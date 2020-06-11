@@ -59,7 +59,7 @@
       
       function changeParam() {
         unregister();
-		alert('in change');
+	//	alert('in change');
         const paramName = 'Cohort Selection';
         dashboard.findParameterAsync(paramName).then(function(parameter) {
           unregister = parameter.addEventListener(window.tableau.TableauEventType.ParameterChanged, updateFilter);
@@ -74,7 +74,7 @@
         // const worksheet = dashboard.worksheets.find(function (ws) { return ws.name === worksheetName });
         // worksheet.clearSelectedMarksAsync();
         // console.log(worksheetName);
-		alert('update');
+	//	alert('update');
         const worksheet = dashboard.worksheets.find(function (ws) { return ws.name === worksheetName });
         // console.log(worksheet)
        // worksheet.selectMarksByValueAsync([{
