@@ -5,19 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/style.css">
-    <script src="tableau.extensions.1.latest.js"></script>
+      <script src="tableau.extensions.1.latest.js"></script>
   </head>  
   <body>
     <h4>
       Parameter Listener
     </h4>
-    <p><i>You can hide this extension by making it 1 by 1 pixel.</i></p>
-    <p>Whenever <b>Parameter</b>:</p>
-    <select id="parameter" onchange="changeParam()"></select>
-    <p>updates, trigger update event in <b>Worksheet</b>:</p>
-    <select id="worksheet" onchange="changeWorksheet()"></select><br><br>
-    <button id="save" onclick="save()">Save</button>
     
     <script>
       let unregister = function() {};
@@ -31,31 +24,7 @@
        // populateLists();
       });
       
-      function populateLists() {
-        let paramList = 'Cohort Selection';
-        let wsList = '';
-        dashboard.worksheets.forEach(function (worksheet) {
-          wsList += '<option value="'+worksheet.name+'">'+worksheet.name+'</option>';
-        })
-        document.getElementById('worksheet').innerHTML = wsList;
-        if (worksheetName) {
-          document.getElementById('worksheet').value = worksheetName;
-        }
-        changeWorksheet();
-        
-        dashboard.getParametersAsync().then(function(parameters) {
-          let paramList = '';
-          parameters.forEach(function (parameter) {
-            paramList += '<option value="'+parameter.name+'">'+parameter.name+'</option>';
-          })
-          document.getElementById('parameter').innerHTML = paramList;
-          if (paramName) {
-            document.getElementById('parameter').value = paramName;
-          }
-          // console.log('param', paramName)
-          changeParam();
-        })
-      }
+   
       
       function changeParam() {
         unregister();
@@ -66,10 +35,7 @@
         });
       }
             
-      function changeWorksheet() {
-        worksheetName = document.getElementById('worksheet').value;
-      }
-      
+          
       function updateFilter() {
         // const worksheet = dashboard.worksheets.find(function (ws) { return ws.name === worksheetName });
         // worksheet.clearSelectedMarksAsync();
@@ -84,12 +50,7 @@
 		  worksheet.applyFilterAsync("Survey Module Filter",["(All)"] , "all");
       }
       
-      function save() {
-        window.tableau.extensions.settings.set('configured', 'true');
-        window.tableau.extensions.settings.set('worksheet', worksheetName || '');
-        window.tableau.extensions.settings.set('parameter', paramName || '');
-        window.tableau.extensions.settings.saveAsync();
-      }
+
     </script>
   </body>
 </html>
