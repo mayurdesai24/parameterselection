@@ -22,21 +22,17 @@
     <script>
       let unregister = function() {};
       let paramName = '';
-      let worksheetName = '';
+      let worksheetName = 'SurveyModuleComp';
       let dashboard;
       
       tableau.extensions.initializeAsync().then(function() {
         dashboard = tableau.extensions.dashboardContent.dashboard;
-        const settings = window.tableau.extensions.settings.getAll();
-        if (settings.configured === 'true') {
-          paramName = settings.parameter || '';
-          worksheetName = settings.worksheet || '';
-        }
-        populateLists();
+        changeParam();
+       // populateLists();
       });
       
       function populateLists() {
-        let paramList = '';
+        let paramList = 'Cohort Selection';
         let wsList = '';
         dashboard.worksheets.forEach(function (worksheet) {
           wsList += '<option value="'+worksheet.name+'">'+worksheet.name+'</option>';
@@ -63,7 +59,8 @@
       
       function changeParam() {
         unregister();
-        paramName = document.getElementById('parameter').value;
+		alert('in change');
+        const paramName = 'Cohort Selection';
         dashboard.findParameterAsync(paramName).then(function(parameter) {
           unregister = parameter.addEventListener(window.tableau.TableauEventType.ParameterChanged, updateFilter);
         });
@@ -77,7 +74,7 @@
         // const worksheet = dashboard.worksheets.find(function (ws) { return ws.name === worksheetName });
         // worksheet.clearSelectedMarksAsync();
         // console.log(worksheetName);
-		//alert('update');
+		alert('update');
         const worksheet = dashboard.worksheets.find(function (ws) { return ws.name === worksheetName });
         // console.log(worksheet)
        // worksheet.selectMarksByValueAsync([{
